@@ -11,26 +11,27 @@ class Artist
         @@all
     end
     
-    def new_song(name, artist, genre)
+    def new_song(name, genre)
         Song.new(name, self, genre)
-        @songs << song
+        # # @songs << song
         # Song.artist = self
     end
     
     def songs
-        Song.all.map do |s|
+        Song.all.select do |song|
         #   puts "#{s.artist.name} is this"
         #   puts "#{self.name} is self.name"
-          if s.artist.name == self.name && s.name != nil
-          p s.name
-          end
+        #   if s.artist.name == self.name && s.name != nil
+        #   p s.name
+        #   end
+        song.artist == self
         end
     end
     
     def genres
-        Song.all.select do |genre|
-            genre.artist == self
-        end
+        songs.collect do |s|
+            s.genre
+        end.uniq
     end
     
     end
