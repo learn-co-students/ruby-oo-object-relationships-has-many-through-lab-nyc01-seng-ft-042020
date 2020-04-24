@@ -14,7 +14,11 @@ class Genre
 
 
     def songs
-        Song.all.collect {|track| track.genre == self}
+        Song.all {|track| track.genre == self}
+    end
+
+    def artists
+        songs.map(&:artist)
     end
 
 
