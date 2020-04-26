@@ -1,22 +1,35 @@
 class Artist    
     attr_accessor :name 
-    @@all = []
+    @@all = [] 
 
     def initialize
-        @songs = []
-        @@all << self
-    end
+        @name = name
+        Artist.all << self 
+    end 
 
-    def self.all 
+    def self.all
         @@all 
     end 
 
-    def add_song(song)
-        @songs << song 
+    def songs
+        # returns all songs associated with this Artist 
+
+      Song.all.select do |song|
+        song.artist == self 
+      end
+    end 
+
+    def add_song(name, genre)
+      Song.new(name, self, genre)
     end
 
-    def songs 
-        @songs 
+    def genres
+        # has many genres, through songs 
+        # 'through songs' means use songs method
+    
+        self.songs.each do |song|
+            song(name, self, genre)
+        end 
     end
 
 end 
